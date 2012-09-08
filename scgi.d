@@ -20,7 +20,7 @@ void GenericServer(string host, ushort port)
     ev.data.fd = listener.handle();
     
     auto epoll = EPoll(maxConnections);
-    auto rez   = epoll.add(listener.handle(), ev);
+    auto rez   = epoll.add(listener, ev);
     
     writefln("EPOLL FD : %d, EPOLL_CTL Result : %d", epoll.epfd, rez);
     
@@ -40,7 +40,7 @@ void GenericServer(string host, ushort port)
                 read[conn.handle] = conn;
                 
                 ev.data.fd = conn.handle();
-                epoll.add(conn.handle(), ev);
+                epoll.add(conn, ev);
                 
                 writef("Received connection from %s .. ", conn.remoteAddress().toString());
             }

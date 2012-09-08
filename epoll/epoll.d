@@ -11,7 +11,7 @@ struct EPoll
     epoll_event[] events;
     
     /**
-     * Get an epoll file descriptor that can handle upto "connections".
+     * Get an epoll file descriptor that can handle upto uint connections.
      */
     this(uint connections)
     {
@@ -28,13 +28,16 @@ struct EPoll
     }
     
     /**
-     * Modify an existing file descriptor (fd) that was added to epoll
+     * Modify an existing file descriptor (fd) that was added to the epoll watcher
      */
     int modify(int fd, ref epoll_event ev)
     {
         return epoll_ctl(epfd, EPOLL_CTL.MOD, fd, &ev);
     }
     
+    /**
+     * Remove an existing fd from the epoll watcher
+     */
     int remove(int fd)
     {
         return epoll_ctl(epfd, EPOLL_CTL.DEL, fd, null);
@@ -49,7 +52,7 @@ struct EPoll
     {
         int n = epoll_wait(epfd, events.ptr, cast(int)events.length, timeout);
         
-        debug{ import std.stdio; writeln("Wait  : ",n); }
+        debug{ import std.stdio; writeln("Wait  : ", n); }
         
         if(n < 1)
             return null;
