@@ -9,7 +9,7 @@ enum
     EPOLL_NONBLOCK = 0x800
 };
 
-enum EPOLL_EVENTS
+enum Events
 {
     IN = 0x001,
     PRI = 0x002,

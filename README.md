@@ -14,7 +14,7 @@ The C interface is also publicly imported.
 
 	//Prepare an epoll_event, that tells epoll what events we're interested in listening to
 	epoll_event ev;
-	ev.events = EPOLL_EVENTS.IN | EPOLL_EVENTS.HUP | 	EPOLL_EVENTS.ERR; //Refer to the epoll documentation
+	ev.events = Events.IN | Events.HUP | Events.ERR; //Refer to the epoll documentation
 	ev.data.fd = listener.handle(); //Optional
 
 	//Watch a file descriptor (socket, file) for "ev.events" events

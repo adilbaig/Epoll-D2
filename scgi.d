@@ -16,7 +16,7 @@ void GenericServer(string host, ushort port)
     const uint maxConnections = 30;
     
     epoll_event ev;
-    ev.events = EPOLL_EVENTS.IN | EPOLL_EVENTS.HUP | EPOLL_EVENTS.ERR;
+    ev.events = Events.IN | Events.HUP | Events.ERR;
     ev.data.fd = listener.handle();
     
     auto epoll = EPoll(maxConnections);
@@ -33,7 +33,7 @@ void GenericServer(string host, ushort port)
             auto fd = event.data.fd;
             
             if (fd == listener.handle()
-                && event.events & EPOLL_EVENTS.IN)
+                && event.events & Events.IN)
             {
                 Socket conn = listener.accept();
                 conn.blocking = false;
@@ -46,7 +46,7 @@ void GenericServer(string host, ushort port)
             }
             else if(fd in read)
             {
-                if(event.events & EPOLL_EVENTS.IN)
+                if(event.events & Events.IN)
                 {
                     try{
                         auto bytes = getRequest(read[fd]);
@@ -63,8 +63,8 @@ void GenericServer(string host, ushort port)
                         writeln(e);
                     }
                 }
-                else if(event.events & EPOLL_EVENTS.ERR
-                    || event.events & EPOLL_EVENTS.HUP)
+                else if(event.events & Events.ERR
+                    || event.events & Events.HUP)
                     writeln("Connection error");
                 
                 epoll.remove(fd);
