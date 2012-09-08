@@ -17,9 +17,10 @@ The C interface is also publicly imported.
 	ev.events = Events.IN | Events.HUP | Events.ERR; //Refer to the epoll documentation
 	ev.data.fd = listener.handle(); //Optional
 
-	//Watch a file descriptor (socket, file) for "ev.events" events
-	epoll.add(int file_descriptor, ev);
-
+	
+	/* Watch a file descriptor (socket, file) for "ev.events" events. epoll watches file descriptors (including its own), not just sockets, for any event. In this example, you can see how to bind a Socket to epoll */ 
+	epoll.add(socket_listener.handle(), ev);
+	
 	while(true)
 	{
 		// Now wait for events to occur
