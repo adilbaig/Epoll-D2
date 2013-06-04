@@ -1,6 +1,8 @@
 Epoll For D
 ========
 
+**IMP :** This Epoll interface has been [integrated into the druntime since 2.061](https://github.com/D-Programming-Language/druntime/blob/887bd80c919499f45bbf16c01cb7f6e0920effcb/src/core/sys/linux/epoll.d). This package is no longer required.
+
 epoll is the fastest event subsystem on Linux ([http://man-wiki.net/index.php/4:epoll](http://man-wiki.net/index.php/4:epoll)). This api is a thin wrapper to the linux epoll api. It exposes all of epoll's facilities with a simpler interface that removes boiler plate without comprosing on epoll's options. 
 
 The C interface is also publicly imported.
